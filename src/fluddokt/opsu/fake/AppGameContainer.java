@@ -1,6 +1,7 @@
 package fluddokt.opsu.fake;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 
 public class AppGameContainer extends GameContainer {
 
@@ -14,16 +15,20 @@ public class AppGameContainer extends GameContainer {
 		super((StateBasedGame) game);
 	}
 
-	public void setDisplayMode(int containerWidth, int containerHeight,
-			boolean b) throws SlickException {
-		System.out.println("setDisplayMode :" + containerWidth + " "
+	public void setWindowedMode(int containerWidth, int containerHeight) throws SlickException {
+		System.out.println("setWindowedMode :" + containerWidth + " "
 				+ containerHeight);
 		AppGameContainer.containerWidth = containerWidth;
 		AppGameContainer.containerHeight = containerHeight;
 
-		Gdx.graphics.setDisplayMode(containerWidth, containerHeight, b);
+		Gdx.graphics.setWindowedMode(containerWidth, containerHeight);
 		width = Gdx.graphics.getWidth();
 		height = Gdx.graphics.getHeight();
+	}
+
+	public void setFullscreenMode(Graphics.DisplayMode DisplayMode) throws SlickException {
+		System.out.println("setFullscreenMode :");
+		Gdx.graphics.setFullscreenMode(DisplayMode);
 	}
 
 	public void setIcons(String[] icons) {

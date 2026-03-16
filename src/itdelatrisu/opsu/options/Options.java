@@ -335,8 +335,8 @@ public class Options {
 			@Override
 			public Object[] getItemList() {
 				if (itemList == null) {
-					int width = Display.getDesktopDisplayMode().getWidth();
-					int height = Display.getDesktopDisplayMode().getHeight();
+					int width = Display.getDisplayModeResolution().getWidth();
+					int height = Display.getDisplayModeResolution().getHeight();
 					List<Resolution> list = new ArrayList<Resolution>();
 					for (Resolution res : Resolution.values()) {
 						// only show resolutions that fit on the screen
@@ -1158,10 +1158,18 @@ public class Options {
 		if (fullscreen && !resolution.hasFullscreenDisplayMode())
 			fullscreen = false;
 
-		try {
-			app.setDisplayMode(resolution.getWidth(), resolution.getHeight(), fullscreen);
-		} catch (SlickException e) {
-			ErrorHandler.error("Failed to set display mode.", e, true);
+		if (fullscreen) {
+			try {
+				app.setFullscreenMode(Display.getDisplayMode());
+			} catch (SlickException e) {
+				ErrorHandler.error("Failed to set fullscreen mode.", e, true);
+			}
+		} else {
+			try {
+				app.setWindowedMode(resolution.getWidth(), resolution.getHeight());
+			} catch (SlickException e) {
+				ErrorHandler.error("Failed to set windowed mode.", e, true);
+			}
 		}
 
 		// set borderless window if dimensions match screen size
