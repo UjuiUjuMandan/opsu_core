@@ -186,6 +186,9 @@ public class Options {
 	 * @return the XDG base directory, or the working directory if unavailable
 	 */
 	private static File getXDGBaseDir(String env, String fallback) {
+		String storageDir = fluddokt.ex.DeviceInfo.info.getStorageDir();
+		if (storageDir != null)
+			return new File(storageDir + "/opsu");
 		return new File("./opsu");
 		/*
 		File workingDir = Utils.isJarRunning() ?

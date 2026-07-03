@@ -17,6 +17,10 @@ public class File {
 
 	public File(String name) {
 		System.out.println("File: "+name);
+		if (name.startsWith(separator)) {
+			fh = Gdx.files.absolute(name);
+			return;
+		}
 		if (Gdx.app.getType() == ApplicationType.Desktop)
 			fh = Gdx.files.local(name);
 		else
